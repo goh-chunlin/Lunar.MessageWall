@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  webfrontend:
+    image: ${DOCKER_REGISTRY-}webfrontend
+    build:
+      context: .
+      dockerfile: WebFrontEnd/Dockerfile
+    ports:
+      - "51803:80"
+      - "44360:443"
+
+  messagewebapi:
+    image: ${DOCKER_REGISTRY-}messagewebapi
+    build:
+      context: .
+      dockerfile: MessageWebAPI/Dockerfile
+    depends_on:
+     - db
+
+  db:
+    container_name: 'postgres'
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password123!

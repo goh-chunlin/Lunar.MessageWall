@@ -1,0 +1,63 @@
+﻿@page
+@using Common
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+    List<UserMessage> userMessages = (List<UserMessage>)(ViewData["Messages"] ?? new List<UserMessage>());
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Messages</h1>
+<p class="mb-4">Enter your message below.</p>
+
+<div>
+    <form method="post" style="margin: 6px 0;">
+        <div class="input-group">
+            <input type="text" name="MessageContent" class="form-control border-0 small" style="background-color: #ebebeb !important;"
+                placeholder="Enter your new message here..." aria-label="Message"
+                aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-paper-plane fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Messages</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Message</th>
+                            <th>Author</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Message</th>
+                            <th>Author</th>
+                            <th>Date</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach(UserMessage message in userMessages)
+                        {
+                            <tr>
+                                <td>@message.Content</td>
+                                <td>@message.SubmittedBy</td>
+                                <td>@message.SubmittedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
